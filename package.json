@@ -1,0 +1,28 @@
+{
+  "name": "gooey",
+  "version": "1.0.0",
+  "description": "Testing Solidity contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasuman/gooey.git"
+  },
+  "keywords": [
+    "test",
+    "ethereum",
+    "solidity"
+  ],
+  "author": "Vasuman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vasuman/gooey/issues"
+  },
+  "homepage": "https://github.com/vasuman/gooey#readme",
+  "dependencies": {
+    "solc": "^0.2.2-2",
+    "web3": "^0.15.3"
+  }
+}

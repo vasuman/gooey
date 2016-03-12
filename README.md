@@ -28,8 +28,8 @@ contracts.
 $ gooey contracts/
 ```
 
-You should have a file named `main.json` (use the `-f` option to change the
-name) in your directory structured like,
+Command should create a new *state file* named `main.json` (use the `-f` option to
+change the name) in your contracts directory structured like,
 
 ```
 {
@@ -45,7 +45,11 @@ name) in your directory structured like,
 }
 ```
 
-Use the `-f` option to maintain files for your testnet and homestead deployments.
+Subsequent invocation of the command will read from this file to determine
+whether the contract has changed.
+
+Use the `-f` option to maintain seperate *state files* for your testnet and
+homestead deployments.
 
 ### Deploy
 
@@ -65,8 +69,9 @@ Invoke `gooey`,
 $ gooey -d deployment.json contracts/
 ```
 
-The `main.json` entry for your contract will have an additional field `address`,
-that gives you the address on the blockchain to which the contract was deployed.
+The *state file* entry for your contract will have an additional field
+`address`, that gives you the address on the blockchain to which the contract
+was deployed.
 
 ```
 {

@@ -6,6 +6,9 @@
   "scripts": {
     "test": "true"
   },
+  "bin": {
+    "gooey": "./bin/gooey.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vasuman/gooey.git"
@@ -22,6 +25,7 @@
   },
   "homepage": "https://github.com/vasuman/gooey#readme",
   "dependencies": {
+    "commander": "^2.9.0",
     "solc": "^0.2.2-2",
     "web3": "^0.15.3"
   }

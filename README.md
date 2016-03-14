@@ -28,7 +28,7 @@ contracts.
 $ gooey contracts/
 ```
 
-Command should create a new *state file* named `main.json` (use the `-f` option to
+Command should create a new *state file* named `main.json` (use the `-s` option to
 change the name) in your contracts directory structured like,
 
 ```
@@ -48,14 +48,18 @@ change the name) in your contracts directory structured like,
 Subsequent invocation of the command will read from this file to determine
 whether the contract has changed.
 
-Use the `-f` option to maintain seperate *state files* for your testnet and
-homestead deployments.
+Use the `-s` option to maintain seperate *state files* for your testnet and
+homestead deployments. Like,
+
+```
+$ gooey -s test contracts/
+```
 
 ### Deploy
 
 You can specify the `-d` option to deploy your contracts. You need to setup a
 deployment configuration first. Let's assume that we have a file called
-`deployment.json` that looks like,
+`deploy.json` that looks like,
 
 ```
 {
@@ -66,7 +70,7 @@ deployment configuration first. Let's assume that we have a file called
 Invoke `gooey`,
 
 ```
-$ gooey -d deployment.json contracts/
+$ gooey -d deploy.json contracts/
 ```
 
 The *state file* entry for your contract will have an additional field
@@ -86,5 +90,6 @@ Contracts are only **re-deployed** if their code has changed.
 
 ## Todo
 
+- [x] Utilities for testing
 - [ ] Support contract linking
 - [ ] Configurable `from` address

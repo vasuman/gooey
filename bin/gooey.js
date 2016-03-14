@@ -14,7 +14,7 @@ cmd
   .option('-a --address', 'RPC address of local ethereum node',
           'http://localhost:8545')
   .option('-d --deploy <config>', 'Deploy contracts on blockchain', '')
-  .option('-f --file <file>', 'Destination file name', 'main.json')
+  .option('-s --state <name>', 'Base state file name', 'main')
   .option('-e --ext <extension>', 'Extension of contract files', '.sol')
   .arguments('<contract-dir>')
   .action(main)
@@ -42,7 +42,7 @@ function compileAll(contractDir) {
 }
 
 function merge(dir, contracts) {
-  let fPath = path.join(dir, cmd.file);
+  let fPath = path.join(dir, `${cmd.state}.json`);
   let existing = null;
 
   function write() {

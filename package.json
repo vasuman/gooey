@@ -1,7 +1,7 @@
 {
   "name": "gooey",
   "version": "0.0.1",
-  "description": "Testing Solidity contracts",
+  "description": "Testing and deploying Solidity contracts",
   "main": "index.js",
   "scripts": {
     "test": "true"

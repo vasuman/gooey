@@ -85,7 +85,7 @@ function merge(dir, contracts) {
       console.log(`deploying contract, ${name}`);
       let abi = contracts[name].abi;
       let code = contracts[name].code;
-      let p = gooey.contracts.deploy(web3, web3.eth.coinbase, abi, code);
+      let p = gooey.contracts.deploy(web3, web3.eth.coinbase, abi, code, []);
       ps.push(p.then(c => {
         console.log(`contract ${name} deployed at ${c.address}`);
         contracts[name].address = c.address;

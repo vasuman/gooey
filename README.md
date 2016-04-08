@@ -117,6 +117,17 @@ whether the contract has changed.
 
 Contracts are only **re-deployed** if their code has changed.
 
+## Testing
+
+Use the `utils` submodule to help setup your contracts for testing. I would
+highly suggest using the [testrpc](https://github.com/ethereumjs/testrpc) server
+for testing.
+
+```
+let sources = utils.getSources(contractDir, '.sol');
+let contracts = await utils.setupTest(web3, require(configPath), sources);
+```
+
 ## Todo
 
 - [x] Utilities for testing

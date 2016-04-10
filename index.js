@@ -1,6 +1,6 @@
 'use strict';
 
-const contracts = require('./lib/contracts.js');
+const core = require('./lib/core.js');
 const utils = require('./lib/utils.js');
 
-module.exports = {contracts, utils};
+module.exports = {core, utils};

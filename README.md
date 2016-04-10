@@ -4,8 +4,16 @@ A tool to manage [Solidity](https://ethereum.github.io/solidity/) contracts.
 
 ## Installation
 
+Globally,
+
 ```
-$ npm install --save-dev https://github.com/vasuman/gooey.git
+# npm install -g github:vasuman/gooey
+```
+
+Or locally for your package,
+
+```
+$ npm install --save-dev github:vasuman/gooey
 ```
 
 ## Directory structure
@@ -25,10 +33,10 @@ The tool will automatically pick up all files with the `.sol` extension (use the
 
 ## Contract linking
 
-Since contracts deployed on the blockchain are immutable, it is recommended to
+Since contracts deployed on the blockchain are immutable, it is advised that you
 split your logic into multiple contracts and link them together. When you want
-to fix a bug, you simply change the required contracts and link your new
-contracts.
+to fix a bug or something, you simply change the required contracts, deploy the
+new versions and and updated their addresses in your existing contracts.
 
 ### Configuration
 
@@ -80,7 +88,7 @@ $ gooey contracts/
 Command should create a new *state file* named `main.json` (use the `-s` option to
 change the name) in your contracts directory structured like,
 
-```
+```json
 {
     "ContractA": {
         "abi": [...],
@@ -102,7 +110,7 @@ If you choose to deploy your contracts (happens by default unless you use the
 contract will have an additional field `address`, that gives you the address on
 the blockchain to which the contract was deployed.
 
-```
+```json
 {
     "ContractA": {
         ...
@@ -119,13 +127,21 @@ Contracts are only **re-deployed** if their code has changed.
 
 ## Testing
 
-Use the `utils` submodule to help setup your contracts for testing. I would
-highly suggest using the [testrpc](https://github.com/ethereumjs/testrpc) server
-for testing.
+Import and use the `utils` submodule to help setup your contracts for testing.
 
-```
+I would highly recommend using the
+[testrpc](https://github.com/ethereumjs/testrpc) server for testing.
+
+```js
+// deployment configuration
+const contractDir = './contracts';
+const config = require('./contracts/config.json');
+
+// create web3 instance
+let web3 = ...
+
 let sources = utils.getSources(contractDir, '.sol');
-let contracts = await utils.setupTest(web3, require(configPath), sources);
+let contracts = await utils.setupTest(web3, config, sources);
 ```
 
 ## Todo
@@ -133,4 +149,4 @@ let contracts = await utils.setupTest(web3, require(configPath), sources);
 - [x] Utilities for testing
 - [x] Support contract linking
 - [x] Configurable `from` address
-- [ ] Refactor and cleanup
+- [x] Refactor and cleanup

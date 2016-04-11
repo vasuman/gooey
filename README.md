@@ -104,6 +104,9 @@ injected to the contract. Each dependency lists a `ref` and `method`. The `ref`
 is the name of the contract that you want to link. The `method` is the name of
 the method that updates the linked contract address.
 
+Incase a `from` address is not specified, it defaults to using the coinbase
+address.
+
 ## Usage
 
 Invoke the `gooey` command and supply the path to the directory containing your
@@ -113,8 +116,8 @@ contracts.
 $ gooey contracts/
 ```
 
-Command should create a new *state file* named `main.json` (use the `-s` option to
-change the name) in your contracts directory structured like,
+Command should create a new *state file* named `state.json` (use the `-s` option to
+change the name) structured like,
 
 ```js
 {

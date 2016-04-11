@@ -33,10 +33,51 @@ The tool will automatically pick up all files with the `.sol` extension (use the
 
 ## Contract linking
 
+> All problems in computer science can be solved by another level of
+> indirection, except of course for the problem of too many indirections.
+> -- <cite> David Wheeler </cite>
+
+One of the most useful features of Solidity contracts is the ability to call
+methods on other contracts at non-static addresses.
+
 Since contracts deployed on the blockchain are immutable, it is advised that you
 split your logic into multiple contracts and link them together. When you want
 to fix a bug or something, you simply change the required contracts, deploy the
 new versions and and updated their addresses in your existing contracts.
+
+Assume that you've split your logic into two contracts such that `ContractB`
+depends on `ContractA` and these two contracts can be independently deployed.
+You add a method to `ContractB` which dynamically updates the address of
+`ContractA`. Just make sure that this method can only be invoked by some
+*restricted set of users* - preferably only the creator.
+
+```
+contract ContractB {
+    ContractA a;
+
+    address creator;
+
+    modifier only(address addr) {
+        if (msg.sender != addr) throw;
+    }
+
+    function ContractB() {
+        creator = msg.sender;
+    }
+
+    ...
+
+    function makeItHappen() {
+        a.doSomething();
+    }
+
+    ...
+
+    function setA(ContractA _a) only(creator) {
+        a = _a;
+    }
+}
+```
 
 ### Configuration
 
@@ -44,10 +85,10 @@ You need to setup a deployment configuration first. Let's assume that we have a
 file called `config.json` (use the `-c` option to point to another file) that
 looks like,
 
-```
+```js
 {
     "ContractA": {
-        "from": "0xc0de..."
+        "from": "0xc0de..." // account from which to deploy - must be unlocked
     },
     "ContractB": {
         "inject": [{
@@ -61,20 +102,7 @@ looks like,
 The `inject` section of each contract is a list of dependencies that need to be
 injected to the contract. Each dependency lists a `ref` and `method`. The `ref`
 is the name of the contract that you want to link. The `method` is the name of
-the method that updates the linked contract address. In the above example,
-ideally, the `setA` method will look something like,
-
-```
-contract ContractB {
-    ContractA a;
-
-    ...
-
-    function setA(ContractA _a) {
-        a = _a;
-    }
-}
-```
+the method that updates the linked contract address.
 
 ## Usage
 
@@ -88,7 +116,7 @@ $ gooey contracts/
 Command should create a new *state file* named `main.json` (use the `-s` option to
 change the name) in your contracts directory structured like,
 
-```json
+```js
 {
     "ContractA": {
         "abi": [...],
@@ -110,7 +138,7 @@ If you choose to deploy your contracts (happens by default unless you use the
 contract will have an additional field `address`, that gives you the address on
 the blockchain to which the contract was deployed.
 
-```json
+```js
 {
     "ContractA": {
         ...

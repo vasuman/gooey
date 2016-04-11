@@ -109,8 +109,8 @@ address.
 
 ## Usage
 
-Invoke the `gooey` command and supply the path to the directory containing your
-contracts.
+Start up your local Ethereum node with RPC support enabled and invoke the
+`gooey` command supplying the path to the directory containing your contracts.
 
 ```
 $ gooey contracts/
@@ -156,7 +156,7 @@ whether the contract has changed.
 
 Contracts are only **re-deployed** if their code has changed.
 
-## Testing
+## Testing Contracts
 
 Import and use the `utils` submodule to help setup your contracts for testing.
 

@@ -17,6 +17,7 @@ cmd
   .option('-s --state <name>', 'State file name', 'state.json')
   .option('-e --ext <extension>', 'Extension of contract files', '.sol')
   .option('-d --dry-run', 'Skip contract deployment')
+  .option('--all', 'Dump all compiled contracts to the state file')
   .arguments('<contract-dir>')
   .action(main)
   .parse(process.argv);
@@ -33,6 +34,15 @@ function main(contractDir) {
   }
   let config = JSON.parse(fs.readFileSync(cmd.config, 'utf8'));
   core.execute(web3, config, prev, compiled, cmd.dryRun).then(state => {
+    if (cmd.all) {
+      for (let name of Object.keys(compiled)) {
+        let abi = compiled[name].abi;
+        let code = compiled[name].code;
+        state[name] = {abi, code};
+      }
+    }
+    return state;
+  }).then(state => {
     fs.writeFileSync(cmd.state, JSON.stringify(state, null, 2), 'utf8');
   }).catch(reason => {
     console.error(`failed because: ${reason}`);
